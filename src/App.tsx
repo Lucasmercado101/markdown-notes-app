@@ -27,7 +27,7 @@ const reducer = (state: State, action: action): State => {
       return [
         ...state,
         // pseudo unique id
-        { text: "! New note\n", id: Math.ceil(Math.random() * 150) },
+        { text: "! New note", id: Math.ceil(Math.random() * 150) },
       ];
 
     case actionTypes.EDITED_NOTE:

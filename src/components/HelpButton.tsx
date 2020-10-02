@@ -3,7 +3,7 @@ import { FaQuestion as QuestionIcon } from "react-icons/fa";
 import MyModal from "./MyModal";
 
 const HelpButton: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
       <button
