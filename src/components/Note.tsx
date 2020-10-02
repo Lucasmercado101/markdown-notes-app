@@ -128,7 +128,7 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
   const { rows, isParsedTextVisible, isEditing, noteText } = state;
 
   return (
-    <div className="shadow hover:shadow-lg rounded-sm p-5 border text-gray-900 w-full">
+    <div className="shadow transition-shadow duration-100 hover:shadow-lg rounded-sm p-5 border text-gray-900 w-full">
       <>
         <div className="flex flex-row justify-start items-center mb-2">
           {isEditing ? (
