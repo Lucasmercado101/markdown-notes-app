@@ -8,8 +8,8 @@ const HelpButton: React.FC = () => {
     <>
       <button
         title="Markdown help"
-        style={{ right: "20px", top: "20px" }}
-        className="shadow-md absolute rounded-full bg-teal-100 h-12 w-12 md:h-16 md:w-16 grid place-items-center"
+        style={{ right: "10px", top: "10px" }}
+        className="shadow-md absolute rounded-full bg-teal-100 h-12 w-12 grid place-items-center"
         onClick={() => setIsModalOpen(true)}
       >
         <QuestionIcon className="w-3/5 h-auto text-gray-500 outline-none" />
