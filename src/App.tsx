@@ -74,6 +74,7 @@ function App() {
         })}
       </div>
       <button
+        title="New note"
         onClick={() => dispatch({ type: actionTypes.ADD_NOTE })}
         style={{ right: "20px", bottom: "20px" }}
         className="shadow-md fixed rounded-full bg-teal-300 h-16 w-16 md:h-20 md:w-20 grid place-items-center"

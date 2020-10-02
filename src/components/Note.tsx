@@ -59,7 +59,7 @@ const markedDownContent = (content: string) => {
 
     hypertext = hypertext.substr(2, hypertext.length);
     url = url.substr(0, url.length - 2);
-    return `<a rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline" href="${url}" target="_blank">${hypertext.trim()}</a>`;
+    return `<a title="${url}" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline" href="${url}" target="_blank">${hypertext.trim()}</a>`;
   });
 
   content = content.replace(/<script>.*(<\/script>)?/g, (x) => "");
@@ -135,6 +135,7 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
             <>
               <button className="h-8 hover:text-green-500 cursor-pointer">
                 <ConfirmIcon
+                  title="Apply changes"
                   className="h-full w-full"
                   onClick={() => {
                     onEdited({ text: noteText, id: content.id });
@@ -143,6 +144,7 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
                 />
               </button>
               <button
+                title="Hide Preview"
                 className="h-8 cursor-pointer ml-3 hover:text-orange-700"
                 onClick={() =>
                   dispatch({ type: actionTypes.TOGGLE_PARSED_TEXT })
@@ -154,7 +156,10 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
                   <ShowIcon className="h-full w-full" />
                 )}
               </button>
-              <button className="h-8 hover:text-red-600 cursor-pointer ml-3">
+              <button
+                title="Cancel"
+                className="h-8 hover:text-red-600 cursor-pointer ml-3"
+              >
                 <XIcon
                   className="h-full w-full"
                   onClick={() => dispatch({ type: actionTypes.CANCEL_EDIT })}
@@ -165,6 +170,7 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
             <>
               <button className="h-8 hover:text-blue-600 cursor-pointer">
                 <EditIcon
+                  title="Edit note"
                   className="h-full w-full"
                   onClick={() =>
                     dispatch({ type: actionTypes.TOGGLE_NOTE_EDIT })
@@ -172,6 +178,7 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
                 />
               </button>
               <button
+                title="Delete note"
                 className=" h-8 hover:text-red-600 cursor-pointer ml-3"
                 onClick={onRequestDelete}
               >
