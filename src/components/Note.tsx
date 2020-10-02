@@ -54,8 +54,16 @@ const markedDownContent = (content: string) => {
     /''.+''/g,
     (x) => `<span class="font-bold">${x.trim().substr(2, x.length - 4)}</span>`
   );
+  content = content.replace(/\[\[.+\|.+\]\]/g, (x) => {
+    let [hypertext, url] = x.split("|");
+
+    hypertext = hypertext.substr(2, hypertext.length);
+    url = url.substr(0, url.length - 2);
+    return `<a rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline" href="${url}" target="_blank">${hypertext.trim()}</a>`;
+  });
 
   content = content.replace(/<script>.*(<\/script>)?/g, (x) => "");
+  content = content.replace(/<style>.*(<\/style>)?/g, (x) => "");
 
   content = content.replace(/\r\n|\r|\n/g, "<br>");
 

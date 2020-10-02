@@ -3,6 +3,7 @@ import Note from "./components/Note";
 import { note } from "./components/types";
 import { FaPlus } from "react-icons/fa";
 import "./assets/main.css";
+import HelpButton from "./components/HelpButton";
 
 type action = {
   type: number;
@@ -50,7 +51,7 @@ function App() {
   const [notes, dispatch] = useReducer(reducer, [
     {
       text:
-        "! Title\nThis __is  underlined     __, and this is ~~crossed out~~, this is\n ''bold''",
+        "! Title\nThis __is  underline__, and this is ~~crossed out~~, this is\n ''bold''\n[[ddgLink|https://duckduckgo.com/]]",
       id: 1,
     },
   ]);
@@ -75,10 +76,11 @@ function App() {
       <button
         onClick={() => dispatch({ type: actionTypes.ADD_NOTE })}
         style={{ right: "20px", bottom: "20px" }}
-        className="fixed rounded-full bg-teal-300 h-16 w-16 md:h-20 md:w-20 grid place-items-center"
+        className="shadow-md fixed rounded-full bg-teal-300 h-16 w-16 md:h-20 md:w-20 grid place-items-center"
       >
         <FaPlus className="w-3/5  h-auto text-gray-900 outline-none" />
       </button>
+      <HelpButton />
     </div>
   );
 }
