@@ -11,12 +11,11 @@ import {
 } from "react-icons/fa";
 
 enum actionTypes {
-  SET_ROWS,
+  ON_TEXT_EDIT,
   TOGGLE_PARSED_TEXT,
   SAVED_NOTE_EDIT,
   TOGGLE_NOTE_EDIT,
   CANCEL_EDIT,
-  SET_EDIT_TEXT,
   CHANGE_COLOR,
 }
 
@@ -93,8 +92,12 @@ type State = {
 
 const reducer = (state: State, action: action): State => {
   switch (action.type) {
-    case actionTypes.SET_ROWS:
-      return { ...state, rows: action.text!.split(/\r\n|\r|\n/g).length + 1 };
+    case actionTypes.ON_TEXT_EDIT:
+      return {
+        ...state,
+        rows: action.text!.split(/\r\n|\r|\n/g).length + 1,
+        noteText: action.text!,
+      };
     case actionTypes.TOGGLE_PARSED_TEXT:
       return { ...state, isParsedTextVisible: !state.isParsedTextVisible };
     case actionTypes.TOGGLE_NOTE_EDIT:
@@ -130,8 +133,6 @@ const reducer = (state: State, action: action): State => {
         isParsedTextVisible: true,
         color: state.preEditColor,
       };
-    case actionTypes.SET_EDIT_TEXT:
-      return { ...state, noteText: action.text! };
     default:
       return state;
   }
@@ -237,9 +238,8 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
         {isEditing && (
           <textarea
             onChange={(e) => {
-              dispatch({ type: actionTypes.SET_ROWS, text: e.target.value });
               dispatch({
-                type: actionTypes.SET_EDIT_TEXT,
+                type: actionTypes.ON_TEXT_EDIT,
                 text: e.target.value,
               });
             }}
