@@ -27,19 +27,19 @@ const reducer = (state: State, action: action): State => {
       return [
         ...state,
         // pseudo unique id
-        { text: "! New note", id: Math.ceil(Math.random() * 150) },
+        {
+          text: "! New note",
+          id: Math.ceil(Math.random() * 150),
+          color: "#fff",
+        },
       ];
 
     case actionTypes.EDITED_NOTE:
-      // console.log(action.editedMessage);
       const editedID = action.editedMessage!.id;
 
       return state.map((i) => {
-        if (i.id === editedID) {
-          return action.editedMessage!;
-        } else {
-          return i;
-        }
+        if (i.id === editedID) return action.editedMessage!;
+        return i;
       });
 
     default:
@@ -53,6 +53,7 @@ function App() {
       text:
         "! Title\nThis __is  underline__, and this is ~~crossed out~~, this is\n ''bold''\n[[ddgLink|https://duckduckgo.com/]]",
       id: 1,
+      color: "#fff",
     },
   ]);
   return (

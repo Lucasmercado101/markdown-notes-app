@@ -7,6 +7,7 @@ import {
   FaTimes as XIcon,
   FaEye as ShowIcon,
   FaEyeSlash as HideIcon,
+  FaPalette as ChangeColorIcon,
 } from "react-icons/fa";
 
 enum actionTypes {
@@ -16,6 +17,7 @@ enum actionTypes {
   TOGGLE_NOTE_EDIT,
   CANCEL_EDIT,
   SET_EDIT_TEXT,
+  CHANGE_COLOR,
 }
 
 type Props = {
@@ -84,7 +86,9 @@ type State = {
   isParsedTextVisible: boolean;
   isEditing: boolean;
   preEditText: string;
+  preEditColor: string;
   noteText: string;
+  color: string;
 };
 
 const reducer = (state: State, action: action): State => {
@@ -100,7 +104,23 @@ const reducer = (state: State, action: action): State => {
         ...state,
         isEditing: false,
         preEditText: state.noteText,
+        preEditColor: state.color,
         isParsedTextVisible: true,
+      };
+    case actionTypes.CHANGE_COLOR:
+      const colors = [
+        "#fed7d7",
+        "#edf2f7",
+        "#feebc8",
+        "#c3dafe",
+        "#fff",
+        "#b2f5ea",
+        "#fed7e2",
+      ];
+      const colorIndex = colors.findIndex((i) => i === state.color);
+      return {
+        ...state,
+        color: colors[colorIndex + 1] ? colors[colorIndex + 1] : colors[0],
       };
     case actionTypes.CANCEL_EDIT:
       return {
@@ -108,6 +128,7 @@ const reducer = (state: State, action: action): State => {
         isEditing: false,
         noteText: state.preEditText,
         isParsedTextVisible: true,
+        color: state.preEditColor,
       };
     case actionTypes.SET_EDIT_TEXT:
       return { ...state, noteText: action.text! };
@@ -121,14 +142,27 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
     rows: content.text.split("\n").length + 1,
     isParsedTextVisible: true,
     isEditing: false,
+    preEditColor: content.color,
     preEditText: content.text,
     noteText: content.text,
+    color: content.color,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { rows, isParsedTextVisible, isEditing, noteText } = state;
+  const {
+    rows,
+    isParsedTextVisible,
+    isEditing,
+    noteText,
+    color,
+    preEditColor,
+    preEditText,
+  } = state;
 
   return (
-    <div className="shadow transition-shadow duration-100 hover:shadow-lg rounded-sm p-5 border text-gray-900 w-full">
+    <div
+      style={{ background: color }}
+      className="shadow transition-shadow duration-100 hover:shadow-lg p-5 rounded text-gray-900 w-full"
+    >
       <>
         <div className="flex flex-row justify-start items-center mb-2">
           {isEditing ? (
@@ -138,14 +172,22 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
                   title="Apply changes"
                   className="h-full w-full"
                   onClick={() => {
-                    onEdited({ text: noteText, id: content.id });
+                    const hasNotChanged =
+                      preEditColor === color && preEditText === noteText;
+
+                    !hasNotChanged &&
+                      onEdited({
+                        text: noteText,
+                        id: content.id,
+                        color: color,
+                      });
                     dispatch({ type: actionTypes.SAVED_NOTE_EDIT });
                   }}
                 />
               </button>
               <button
                 title="Hide Preview"
-                className="h-8 cursor-pointer ml-3 hover:text-orange-700"
+                className="h-8 cursor-pointer ml-3 hover:text-teal-500"
                 onClick={() =>
                   dispatch({ type: actionTypes.TOGGLE_PARSED_TEXT })
                 }
@@ -158,12 +200,17 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
               </button>
               <button
                 title="Cancel"
+                onClick={() => dispatch({ type: actionTypes.CANCEL_EDIT })}
                 className="h-8 hover:text-red-600 cursor-pointer ml-3"
               >
-                <XIcon
-                  className="h-full w-full"
-                  onClick={() => dispatch({ type: actionTypes.CANCEL_EDIT })}
-                />
+                <XIcon className="h-full w-full" />
+              </button>
+              <button
+                title="Change color"
+                onClick={() => dispatch({ type: actionTypes.CHANGE_COLOR })}
+                className="h-6 hover:text-green-600 cursor-pointer ml-3"
+              >
+                <ChangeColorIcon className="h-full w-full" />
               </button>
             </>
           ) : (
