@@ -1,5 +1,5 @@
 export type Note = {
   text: string;
-  id: number;
+  _id: string;
   color: string;
 };

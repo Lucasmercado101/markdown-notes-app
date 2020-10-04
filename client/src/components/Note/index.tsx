@@ -55,7 +55,7 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
     !hasNotChanged &&
       onEdited({
         text: noteText,
-        id: content.id,
+        _id: content._id,
         color: color,
       });
     dispatch(savedNoteEdit);

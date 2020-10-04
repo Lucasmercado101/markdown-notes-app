@@ -17,7 +17,7 @@ const HelpButton: React.FC = () => {
     <>
       <button
         title="Markdown help"
-        style={{ right: "10px", top: "10px" }}
+        style={{ left: "10px", top: "10px" }}
         className="shadow-md absolute rounded-full bg-teal-100 h-12 w-12 grid place-items-center"
         onClick={() => setIsModalOpen(true)}
       >
