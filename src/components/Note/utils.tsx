@@ -33,7 +33,7 @@ export const markedDownContent = (content: string) => {
     /''.+?''/g,
     (x) => `<span class="font-bold">${x.trim().substr(2, x.length - 4)}</span>`
   );
-  content = content.replace(/\[\[.+\|.+\]\]/g, (x) => {
+  content = content.replace(/\[\[.+?\|.+?\]\]/g, (x) => {
     let [hypertext, url] = x.split("|");
     hypertext = hypertext.substr(2, hypertext.length);
     url = url.substr(0, url.length - 2);
