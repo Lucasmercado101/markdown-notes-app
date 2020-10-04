@@ -102,16 +102,6 @@ const HelpButton: React.FC = () => {
               <code className="bg-gray-200 p-1">&amp;cent;</code> = &cent;
             </li>
           </ul>
-          <a
-            className="text-blue-600 hover:text-blue-800 underline"
-            title="https://www.w3schools.com/TAGs/"
-            href="https://www.w3schools.com/TAGs/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            HTML Tags
-          </a>{" "}
-          (with no styles)
           <button
             className="ml-auto mr-auto block bg-teal-800 hover:bg-teal-600 w-full md:w-3/5 py-1 mt-6 text-lg rounded-md text-white"
             onClick={() => setIsModalOpen(false)}

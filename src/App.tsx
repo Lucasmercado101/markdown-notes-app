@@ -1,9 +1,9 @@
 import React, { useReducer } from "react";
 import Note from "./components/Note";
-import { note } from "./components/types";
+import { Note as note } from "./components/Note/types";
 import { FaPlus } from "react-icons/fa";
 import "./assets/main.css";
-import HelpButton from "./components/HelpButton";
+import HelpButton from "./components/HelpButton/HelpButton";
 
 type action = {
   type: number;
@@ -29,7 +29,7 @@ const reducer = (state: State, action: action): State => {
         // pseudo unique id
         {
           text: "! New note",
-          id: Math.ceil(Math.random() * 150),
+          id: Math.ceil(Math.random() * 1500),
           color: "#fff",
         },
       ];
@@ -47,17 +47,19 @@ const reducer = (state: State, action: action): State => {
   }
 };
 
+const initialState = [
+  {
+    text:
+      "! Title\nThis __is  underline__, and this is ~~crossed out~~, this is\n ''bold''\n[[ddgLink|https://duckduckgo.com/]]",
+    id: 1,
+    color: "#fff",
+  },
+];
+
 function App() {
-  const [notes, dispatch] = useReducer(reducer, [
-    {
-      text:
-        "! Title\nThis __is  underline__, and this is ~~crossed out~~, this is\n ''bold''\n[[ddgLink|https://duckduckgo.com/]]",
-      id: 1,
-      color: "#fff",
-    },
-  ]);
+  const [notes, dispatch] = useReducer(reducer, initialState);
   return (
-    <div className="App p-4 w-full text-gray-900">
+    <div className="App p-4 w-full bg-gray-200 text-gray-900">
       <div className="grid items-start auto-grow-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6 justify-center mb-6">
         {notes.map((data) => {
           return (
