@@ -14,3 +14,7 @@ export const createNewNote = (): Promise<Note> => {
 export const deleteNote = (id: string) => {
   return axios.delete(`api/notes/${id}`);
 };
+
+export const updateNote = (note: Note) => {
+  return axios.put(`api/notes/${note._id}`, { note });
+};

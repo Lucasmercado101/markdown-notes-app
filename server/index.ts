@@ -7,6 +7,7 @@ import "dotenv/config";
 import rootDir from "./utils/path";
 
 import Note from "./models/note";
+import note from "./models/note";
 
 const port = process.env.PRODUCTION || 5000;
 const app = express();
@@ -36,6 +37,11 @@ app.get("/api/notes", (_, res) =>
     )
   )
 );
+
+app.put("/api/notes/:id", (req, res) => {
+  const noteID = req.params.id;
+  Note.findByIdAndUpdate(noteID, req.body.note, () => res.sendStatus(200));
+});
 
 app.delete("/api/notes/:id", (req, res) => {
   const noteID = req.params.id;

@@ -22,7 +22,3 @@ export type AddNewNoteAction = {
 export type FetchedNotesAction = {
   notes: Note[];
 } & Action;
-
-export type EditedNoteAction = {
-  editedNote: Note;
-} & Action;

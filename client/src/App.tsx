@@ -5,13 +5,13 @@ import Note from "./components/Note";
 import HelpButton from "./components/HelpButton/HelpButton";
 import { reducer } from "./useReducer/reducer";
 import { Note as NoteType } from "./components/Note/types";
+import { deleteNote, addNewNote, fetchedNotes } from "./useReducer/actions";
 import {
-  editedNote,
-  deleteNote,
-  addNewNote,
-  fetchedNotes,
-} from "./useReducer/actions";
-import { createNewNote, getNotes, deleteNote as deleteNoteApi } from "./api";
+  createNewNote,
+  getNotes,
+  deleteNote as deleteNoteApi,
+  updateNote,
+} from "./api";
 
 //TODO: Set a note limit of 100
 
@@ -29,9 +29,7 @@ function App() {
           return (
             <Note
               key={data._id}
-              onEdited={(editedMessage: NoteType) =>
-                dispatch(editedNote(editedMessage))
-              }
+              onEdited={(note: NoteType) => updateNote(note)}
               onRequestDelete={() =>
                 deleteNoteApi(data._id).then(() =>
                   dispatch(deleteNote(data._id))
