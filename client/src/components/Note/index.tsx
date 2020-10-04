@@ -50,14 +50,16 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
   } = state;
 
   const onApplyChanges = () => {
-    const hasNotChanged = preEditColor === color && preEditText === noteText;
+    const sameNoteAsBeforeEdit =
+      preEditColor === color && preEditText === noteText;
 
-    !hasNotChanged &&
+    if (!sameNoteAsBeforeEdit) {
       onEdited({
         text: noteText,
         _id: content._id,
         color: color,
       });
+    }
     dispatch(savedNoteEdit);
   };
 

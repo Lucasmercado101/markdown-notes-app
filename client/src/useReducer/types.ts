@@ -23,8 +23,6 @@ export type FetchedNotesAction = {
   notes: Note[];
 } & Action;
 
-// type action = {
-//   type: number;
-//   noteID?: number;
-//   editedMessage?: note;
-// };
+export type EditedNoteAction = {
+  editedNote: Note;
+} & Action;

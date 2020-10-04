@@ -13,6 +13,8 @@ import {
 } from "./useReducer/actions";
 import { createNewNote, getNotes, deleteNote as deleteNoteApi } from "./api";
 
+//TODO: Set a note limit of 100
+
 function App() {
   const [notes, dispatch] = useReducer(reducer, []);
 
@@ -21,7 +23,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App p-4 w-full h-full bg-gray-200 text-gray-900">
+    <div className="App p-4 overflow-auto w-full h-full bg-gray-200 text-gray-900">
       <div className="grid items-start auto-grow-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6 justify-center mb-6">
         {notes.map((data) => {
           return (
@@ -43,7 +45,9 @@ function App() {
       <button
         title="New note"
         onClick={() => {
-          createNewNote().then((i) => dispatch(addNewNote(i)));
+          createNewNote().then((newNoteData) =>
+            dispatch(addNewNote(newNoteData))
+          );
         }}
         style={{ right: "20px", bottom: "20px" }}
         className="shadow-md fixed rounded-full bg-teal-300 h-16 w-16 md:h-20 md:w-20 grid place-items-center"

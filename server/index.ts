@@ -43,7 +43,7 @@ app.delete("/api/notes/:id", (req, res) => {
 });
 
 app.post("/api/notes", (_, res) => {
-  const note = new Note({ text: "", color: "#fff" });
+  const note = new Note({ text: "! New note", color: "#fff" });
   note.save().then(({ _id, text, color }) => res.json({ _id, text, color }));
 });
 

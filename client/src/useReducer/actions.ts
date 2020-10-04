@@ -3,11 +3,12 @@ import {
   ActionTypes,
   AddNewNoteAction,
   DeleteNoteAction,
+  EditedNoteAction,
   FetchedNotesAction,
 } from "./types";
 
-export const editedNote = (editedMessage: Note) => {
-  return { type: ActionTypes.EDITED_NOTE, editedMessage };
+export const editedNote = (editedNote: Note): EditedNoteAction => {
+  return { type: ActionTypes.EDITED_NOTE, editedNote };
 };
 
 export const deleteNote = (noteID: string): DeleteNoteAction => {
