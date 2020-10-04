@@ -66,7 +66,7 @@ const HelpButton: React.FC = () => {
           </div>
           <br />
           <div className="flex items-center">
-            <code className="bg-gray-200 p-1 mr-2">[[url|link]]</code> ={" "}
+            <code className="bg-gray-200 p-1 mr-2">[[text here|link]]</code> ={" "}
             <a
               className="text-blue-600 hover:text-blue-800 underline ml-2"
               title="https://lucasmercado101.github.io"
@@ -74,7 +74,7 @@ const HelpButton: React.FC = () => {
               rel="noopener noreferrer"
               target="_blank"
             >
-              lucasmercado101.github.io
+              text here
             </a>
           </div>
           <hr className="my-5" />
