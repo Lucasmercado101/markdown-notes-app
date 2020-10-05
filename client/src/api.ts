@@ -18,3 +18,14 @@ export const deleteNote = (id: string) => {
 export const updateNote = (note: Note) => {
   return axios.put(`api/notes/${note._id}`, { note });
 };
+
+export const registerNewUser = (userData: {
+  email: string;
+  password: string;
+}) => {
+  return axios.post(`api/users/register`, userData);
+};
+
+export const login = (userData: { email: string; password: string }) => {
+  return axios.post(`api/users/login`, userData);
+};

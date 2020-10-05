@@ -13,6 +13,10 @@ import {
   updateNote,
 } from "./api";
 
+//Test
+import Register from "./views/Register";
+import Login from "./views/Login";
+
 //TODO: Set a note limit of 100
 
 function App() {
@@ -24,7 +28,9 @@ function App() {
 
   return (
     <div className="App p-4 overflow-auto w-full h-full bg-gray-200 text-gray-900">
-      <div className="grid items-start auto-grow-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6 justify-center mb-6">
+      <Register />
+      <Login />
+      {/* <div className="grid items-start auto-grow-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6 justify-center mb-6">
         {notes.map((data) => {
           return (
             <Note
@@ -39,7 +45,7 @@ function App() {
             />
           );
         })}
-      </div>
+      </div> */}
       <button
         title="New note"
         onClick={() => {
