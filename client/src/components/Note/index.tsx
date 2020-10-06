@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { motion } from "framer-motion";
 import {
   FaPen as EditIcon,
   FaTrashAlt as DeleteIcon,
@@ -63,8 +64,24 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
     dispatch(savedNoteEdit);
   };
 
+  const variation = {
+    hidden: { y: 50, opacity: 0 },
+    show: { y: 0, opacity: 1 },
+    exit: {
+      x: -100,
+      opacity: 0,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+
   return (
-    <div
+    <motion.div
+      variants={variation}
+      initial="hidden"
+      animate="show"
+      exit="exit"
       style={{ background: color }}
       className="shadow transition-shadow duration-100 hover:shadow-lg p-5 rounded text-gray-900 w-full"
     >
@@ -79,13 +96,13 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
             />
             <IconButton
               title="Change color"
-              className="hover:text-green-600"
+              className="hover:text-orange-600"
               onClick={() => dispatch(changeColor)}
               icon={PaletteIcon}
             />
             <IconButton
               title="Hide Preview"
-              className="hover:text-teal-600"
+              className="hover:text-teal-700"
               onClick={() => dispatch(toggleParsedText)}
               icon={isParsedTextVisible ? HideIcon : ShowIcon}
             />
@@ -127,7 +144,7 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
       {isParsedTextVisible && (
         <div className="font-serif">{markedDownContent(noteText)}</div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
