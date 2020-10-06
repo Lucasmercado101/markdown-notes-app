@@ -23,6 +23,7 @@ mongoose
   .connect(process.env.MONGO_DB_PASS!, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then(() => console.log("connected to Mongo"))
   .catch(() => console.log("FAILED TO CONNECT TO MONGO"));
@@ -33,9 +34,13 @@ app.use(json());
 //TODO: replace session memoryStore with connect-mongo
 app.use(
   session({
+    name: "user",
     secret: process.env.SESSION_SECRET!,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      httpOnly: false,
+    },
   })
 );
 app.use(passport.initialize());

@@ -21,3 +21,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.text-line-through {
+  overflow: hidden;
+  text-align: center;
+}
+.text-line-through::before,
+.text-line-through::after {
+  background-color: #cbd5e0;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.text-line-through::before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+
+.text-line-through::after {
+  left: 0.5em;
+  margin-right: -50%;
+}

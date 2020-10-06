@@ -5,9 +5,10 @@ import { compare as passwordsAreTheSame } from "bcrypt";
 
 export default function init(passport: PassportStatic) {
   const authenticateUser: VerifyFunction = async (email, password, done) => {
-    return await User.findOne({ email }, (err, user: UserType) => {
+    return await User.findOne({ email }, async (err, user: UserType) => {
       if (user === null) return done(err, false);
-      if (passwordsAreTheSame(password, user.password)) return done(err, user);
+      if (await passwordsAreTheSame(password, user.password))
+        return done(err, user);
       return done(err, false);
     });
   };
@@ -17,7 +18,8 @@ export default function init(passport: PassportStatic) {
     new LocalStrategy({ usernameField: "email" }, authenticateUser)
   );
   passport.serializeUser((user: UserType, done) => done(null, user._id));
-  passport.deserializeUser((userID: string, done) =>
-    User.findById(userID, (err, user) => done(err, user))
+  passport.deserializeUser(
+    async (userID: string, done) =>
+      await User.findById(userID, (err, user) => done(err, user))
   );
 }

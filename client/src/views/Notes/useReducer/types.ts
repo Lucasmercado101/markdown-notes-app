@@ -1,4 +1,4 @@
-import { Note } from "../components/Note/types";
+import { Note } from "../../../components/Note/types";
 
 export enum ActionTypes {
   DELETE_NOTE,
