@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBars as HamburgerIcon, FaPlus, FaQuestion } from "react-icons/fa";
 import { BiLogOut as LogOutButton } from "react-icons/bi";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
+import useViewportDimensions from "../../hooks/ViewportSize";
 
-// const variant = {
-//   closed: { opacity: 1, width: "auto", background: "red" },
-//   open: { opacity: 1, width: "auto", background: "blue" },
-//   exit: { opacity: 0 },
-// };
-
-const variant = {
+const variant: Variants = {
   closed: {
     width: "6rem",
     transition: { type: "tween" },
@@ -27,21 +22,34 @@ const variant = {
 };
 
 function Menu() {
+  const { width } = useViewportDimensions();
+  const [showToggleMenu, setShowToggleMenu] = useState(true);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (width < 768) {
+      setMenuIsOpen(true);
+      setShowToggleMenu(false);
+    } else {
+      setShowToggleMenu(true);
+    }
+  }, [width]);
+
   return (
     <motion.div
       variants={variant}
       initial={false}
-      //   animate={menuIsOpen ? "open" : "open"}
       animate={menuIsOpen ? "open" : "closed"}
-      className="h-24 absolute left-0 p-4 right-0 max-w-screen-lg flex flex-row justify-evenly items-center bottom-0 my-5 mx-1 md:mx-5 rounded-full bg-blue-600"
+      className="h-24 text-black-100 bg-orange-200 border border-gray-400 shadow-md absolute left-0 px-6 py-4 md:py-4 right-0 max-w-screen-lg flex flex-row-reverse  md:flex-row md:justify-evenly justify-between items-center bottom-0 my-5 mx-1 md:mx-5 rounded-full "
     >
-      <button
-        onClick={() => setMenuIsOpen(!menuIsOpen)}
-        className="w-auto h-full"
-      >
-        <HamburgerIcon className="w-full h-full text-white" />
-      </button>
+      {showToggleMenu && (
+        <button
+          onClick={() => setMenuIsOpen(!menuIsOpen)}
+          className="w-auto h-full relative overflow-hidden"
+        >
+          <HamburgerIcon className="w-full h-full " />
+        </button>
+      )}
       <AnimatePresence>
         {menuIsOpen && (
           <>
@@ -58,7 +66,7 @@ function Menu() {
               className=" h-full w-auto "
               title="New note"
             >
-              <FaPlus className="h-full w-auto text-white" />
+              <FaPlus className="h-full w-auto" />
             </motion.button>
 
             <motion.button
@@ -74,7 +82,7 @@ function Menu() {
               exit="exit"
               title="Help"
             >
-              <FaQuestion className="h-full w-auto text-white" />
+              <FaQuestion className="h-full w-auto " />
             </motion.button>
             <motion.button
               whileHover={{
@@ -89,7 +97,7 @@ function Menu() {
               exit="exit"
               title="Log out"
             >
-              <LogOutButton className="h-full w-auto text-white" />
+              <LogOutButton className="h-full w-auto " />
             </motion.button>
           </>
         )}
