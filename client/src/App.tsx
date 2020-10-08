@@ -15,9 +15,10 @@ function App() {
   const { isLoggedIn, userID } = state;
 
   useLayoutEffect(() => {
-    if (Cookies.get("user")) {
-      dispatch(logIn);
-    }
+    dispatch(useAsGuest);
+    // if (Cookies.get("user")) {
+    //   dispatch(logIn);
+    // }
   }, []);
 
   return (
