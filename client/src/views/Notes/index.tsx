@@ -59,28 +59,30 @@ const Notes: React.FC<{ userID: string }> = ({ userID }) => {
   }, [notes]);
 
   return (
-    <>
-      <div className="grid items-start auto-grow-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6 justify-center mb-6 p-6">
-        <AnimatePresence>
-          {notes.map((data) => (
-            <Note
-              key={data._id}
-              onEdited={(note: NoteType) => userID && updateNote(note)}
-              onRequestDelete={() => {
-                if (userID) {
-                  deleteNoteApi(data._id)
-                    .then(() => dispatch(deleteNote(data._id)))
-                    .catch(() => console.log("Error deleting"));
-                } else {
-                  localIDs = localIDs.filter((i) => i !== +data._id);
-                  dispatch(deleteNote(data._id));
-                }
-              }}
-              content={data}
-            />
-          ))}
-        </AnimatePresence>
-      </div>
+    <div className="h-full w-full overflow-auto">
+      {notes.length > 0 && (
+        <div className="grid items-start auto-grow-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6 justify-center mb-6 p-6">
+          <AnimatePresence>
+            {notes.map((data) => (
+              <Note
+                key={data._id}
+                onEdited={(note: NoteType) => userID && updateNote(note)}
+                onRequestDelete={() => {
+                  if (userID) {
+                    deleteNoteApi(data._id)
+                      .then(() => dispatch(deleteNote(data._id)))
+                      .catch(() => console.log("Error deleting"));
+                  } else {
+                    localIDs = localIDs.filter((i) => i !== +data._id);
+                    dispatch(deleteNote(data._id));
+                  }
+                }}
+                content={data}
+              />
+            ))}
+          </AnimatePresence>
+        </div>
+      )}
       <motion.div
         whileHover={{ rotate: 90, scale: 1.1 }}
         title="New note"
@@ -108,7 +110,7 @@ const Notes: React.FC<{ userID: string }> = ({ userID }) => {
         <FaPlus className="w-3/5  h-auto text-gray-900 outline-none" />
       </motion.div>
       <HelpButton />
-    </>
+    </div>
   );
 };
 
