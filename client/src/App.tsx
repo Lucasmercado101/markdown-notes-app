@@ -15,6 +15,7 @@ function App() {
   const { isLoggedIn, userID } = state;
 
   useLayoutEffect(() => {
+    //TODO: document.title = "Notes app"
     if (Cookies.get("user")) {
       dispatch(logIn);
     }
