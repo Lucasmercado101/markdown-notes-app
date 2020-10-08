@@ -34,7 +34,10 @@ const container = {
   },
 };
 
-const Notes: React.FC<{ userID: string }> = ({ userID }) => {
+const Notes: React.FC<{ userID: string; onRequestLogOut: () => void }> = ({
+  userID,
+  onRequestLogOut,
+}) => {
   const [notes, dispatch] = useReducer(reducer, []);
 
   useEffect(() => {

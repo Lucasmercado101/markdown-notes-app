@@ -1,29 +1,35 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useReducer } from "react";
 import Cookies from "js-cookie";
 import "./assets/main.css";
 
+import { reducer } from "./useReducer/reducer";
+import { State } from "./useReducer/reducer";
+import { logIn, logOut, useAsGuest } from "./useReducer/actions";
 import InitialForm from "./views/InitialForm";
 import Notes from "./views/Notes";
 
+const initialState: State = { isLoggedIn: false, userID: "" };
+
 function App() {
-  //Todo Set this state as a usereducer
-  const [userData, setUserData] = useState({ userID: "" });
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { isLoggedIn, userID } = state;
 
   useLayoutEffect(() => {
-    const cookieData = Cookies.get("user");
-    if (cookieData) {
-      setUserData({ userID: cookieData });
+    if (Cookies.get("user")) {
+      dispatch(logIn);
     }
-  }, [loggedIn]);
+  }, []);
 
   return (
     <div className="App w-full h-full bg-gray-200 overflow-auto text-gray-900">
       <div className={`relative w-full h-full overflow-hidden`}>
-        {userData.userID ? (
-          <Notes userID={userData.userID} />
+        {isLoggedIn ? (
+          <Notes userID={userID} onRequestLogOut={() => dispatch(logOut)} />
         ) : (
-          <InitialForm onLoggedIn={() => setLoggedIn(true)} />
+          <InitialForm
+            onUseAsGuest={() => dispatch(useAsGuest)}
+            onLoggedIn={() => dispatch(logIn)}
+          />
         )}
       </div>
     </div>

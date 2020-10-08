@@ -5,7 +5,10 @@ import { FaTimesCircle as ErrorIcon } from "react-icons/fa";
 import { AxiosError } from "axios";
 import LoadingSpinner from "../assets/img/loading_spinner.svg";
 
-const StartingForm: React.FC<{ onLoggedIn: () => void }> = ({ onLoggedIn }) => {
+const StartingForm: React.FC<{
+  onLoggedIn: () => void;
+  onUseAsGuest: () => void;
+}> = ({ onLoggedIn, onUseAsGuest }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [error, setError] = useState("");
@@ -135,7 +138,7 @@ const StartingForm: React.FC<{ onLoggedIn: () => void }> = ({ onLoggedIn }) => {
         />
 
         <input
-          onClick={() => setIsLogin(false)}
+          onClick={() => onUseAsGuest()}
           type="button"
           name="guest"
           disabled={isLoggingIn}
