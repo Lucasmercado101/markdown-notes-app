@@ -1,9 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { FaPlus } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import Note from "../../components/Note";
-import HelpButton from "../../components/HelpButton/HelpButton";
-import DragMenu from "./DragMenu";
+import Menu from "./Menu";
 import { Note as NoteType } from "../../components/Note/types";
 import { reducer } from "./useReducer/reducer";
 import { deleteNote, addNewNote, fetchedNotes } from "./useReducer/actions";
@@ -44,7 +42,7 @@ const Notes: React.FC<{ userID: string; onRequestLogOut: () => void }> = ({
   return (
     <div className="h-full w-full  overflow-auto">
       {notes.length > 0 && (
-        <div className="grid mb-20 items-start auto-grow-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6 justify-center p-6">
+        <div className="grid mb-20 md:mb-24 items-start auto-grow-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6 justify-center p-6">
           <AnimatePresence>
             {notes.map((data) => (
               <Note
@@ -67,12 +65,8 @@ const Notes: React.FC<{ userID: string; onRequestLogOut: () => void }> = ({
         </div>
       )}
 
-      <DragMenu />
-
-      {/* <motion.div
-        whileHover={{ rotate: 90, scale: 1.1 }}
-        title="New note"
-        onClick={async () => {
+      <Menu
+        onRequestAddNewNote={async () => {
           if (userID) {
             createNewNote().then((newNoteData) =>
               dispatch(addNewNote(newNoteData))
@@ -90,12 +84,8 @@ const Notes: React.FC<{ userID: string; onRequestLogOut: () => void }> = ({
             );
           }
         }}
-        style={{ right: "20px", bottom: "20px" }}
-        className="shadow-md fixed cursor-pointer rounded-full bg-teal-300 h-16 w-16 md:h-20 md:w-20 grid place-items-center"
-      >
-        <FaPlus className="w-3/5  h-auto text-gray-900 outline-none" />
-      </motion.div> */}
-      {/* <HelpButton /> */}
+        onRequestLogOut={onRequestLogOut}
+      />
     </div>
   );
 };
