@@ -146,7 +146,9 @@ const Note: React.FC<Props> = ({ content, onRequestDelete, onEdited }) => {
         )}
         {isEditing && isParsedTextVisible && <hr className="my-4" />}
         {isParsedTextVisible && (
-          <div className="font-serif">{markedDownContent(noteText)}</div>
+          <div className="font-serif break-words">
+            {markedDownContent(noteText)}
+          </div>
         )}
       </div>
     </motion.div>

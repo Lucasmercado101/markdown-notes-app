@@ -31,9 +31,12 @@ router.put("/notes/:id", (req, res) => {
 
 router.delete("/notes/:id", async (req: any, res) => {
   const noteID = req.params.id;
-  await req.user.update({ $pull: { notes: { $in: [noteID] } } });
-  await Note.findByIdAndDelete(noteID).catch(() => {});
-  res.sendStatus(200);
+  try {
+    await req.user.update({ $pull: { notes: { $in: [noteID] } } });
+    await Note.findByIdAndDelete(noteID).catch(() => {});
+  } catch {
+    res.sendStatus(500);
+  }
 });
 
 router.post("/notes", ({ user }: any, res) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { FaBars as HamburgerIcon, FaPlus, FaQuestion } from "react-icons/fa";
 import { BiLogOut as LogOutButton } from "react-icons/bi";
 import HelpModal from "../../components/HelpModal";
@@ -62,7 +62,6 @@ const Menu: React.FC<{
               <motion.button
                 whileHover={{
                   scale: [1, 1.1, 1, 1.1],
-                  origin: "center",
                 }}
                 onClick={onRequestAddNewNote}
                 variants={variant}
@@ -80,7 +79,6 @@ const Menu: React.FC<{
                 whileHover={{
                   rotate: [0, 20, 0, 20, 0],
                   scale: 1.1,
-                  origin: "center",
                 }}
                 variants={variant}
                 initial="hidden"
@@ -96,7 +94,6 @@ const Menu: React.FC<{
                 whileHover={{
                   x: [0, -5, 5, 0],
                   scale: 1.1,
-                  origin: "center",
                 }}
                 variants={variant}
                 initial="hidden"

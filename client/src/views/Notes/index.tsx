@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import { AnimatePresence } from "framer-motion";
 import Note from "../../components/Note";
 import Menu from "./Menu";
@@ -11,33 +11,39 @@ import {
   deleteNote as deleteNoteApi,
   updateNote,
 } from "../../api";
+import ToastsContainer from "../../components/ToastsContainer";
+import Toasts from "../../components/ToastsContainer/toasts";
+import newUUID from "react-uuid";
+import { AxiosError } from "axios";
 
 //TODO: Set a note limit of 100
-
-let localIDs: number[] = [1];
 
 const Notes: React.FC<{ userID: string; onRequestLogOut: () => void }> = ({
   userID,
   onRequestLogOut,
 }) => {
   const [notes, dispatch] = useReducer(reducer, []);
+  const { newToast } = Toasts.useContainer();
 
   useEffect(() => {
+    document.title = "Notes App";
     if (userID) {
-      getNotes().then((i) => dispatch(fetchedNotes(i)));
+      getNotes()
+        .then((i) => dispatch(fetchedNotes(i.data)))
+        .catch(() => {
+          newToast("An unknown error has ocurred.");
+          onRequestLogOut();
+        });
     } else {
-      const newID = localIDs[localIDs.length - 1] + 1;
-      localIDs.push(newID);
-
       dispatch(
         addNewNote({
           text: "! New note",
           color: "#fff",
-          _id: newID.toString(),
+          _id: newUUID(),
         })
       );
     }
-  }, []);
+  }, [newToast, onRequestLogOut, userID]);
 
   return (
     <div className="h-full w-full  overflow-auto">
@@ -47,14 +53,25 @@ const Notes: React.FC<{ userID: string; onRequestLogOut: () => void }> = ({
             {notes.map((data) => (
               <Note
                 key={data._id}
-                onEdited={(note: NoteType) => userID && updateNote(note)}
+                onEdited={(note: NoteType) =>
+                  userID &&
+                  updateNote(note).catch((i: AxiosError) =>
+                    newToast(
+                      i.response?.statusText || "An unknown error has ocurred."
+                    )
+                  )
+                }
                 onRequestDelete={() => {
                   if (userID) {
                     deleteNoteApi(data._id)
                       .then(() => dispatch(deleteNote(data._id)))
-                      .catch(() => console.log("Error deleting"));
+                      .catch((i: AxiosError) =>
+                        newToast(
+                          i.response?.statusText ||
+                            "An unknown error has ocurred."
+                        )
+                      );
                   } else {
-                    localIDs = localIDs.filter((i) => i !== +data._id);
                     dispatch(deleteNote(data._id));
                   }
                 }}
@@ -64,28 +81,29 @@ const Notes: React.FC<{ userID: string; onRequestLogOut: () => void }> = ({
           </AnimatePresence>
         </div>
       )}
-
       <Menu
         onRequestAddNewNote={async () => {
           if (userID) {
-            createNewNote().then((newNoteData) =>
-              dispatch(addNewNote(newNoteData))
-            );
+            createNewNote()
+              .then((newNoteData) => dispatch(addNewNote(newNoteData.data)))
+              .catch((i: AxiosError) =>
+                newToast(
+                  i.response?.statusText || "An unknown error has ocurred."
+                )
+              );
           } else {
-            const newID = localIDs[localIDs.length - 1] + 1;
-            localIDs.push(newID);
-
             dispatch(
               addNewNote({
                 text: "! New note",
                 color: "#fff",
-                _id: newID.toString(),
+                _id: newUUID(),
               })
             );
           }
         }}
         onRequestLogOut={onRequestLogOut}
       />
+      <ToastsContainer />
     </div>
   );
 };

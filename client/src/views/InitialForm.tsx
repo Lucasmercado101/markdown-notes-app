@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import birdImage from "../assets/img/birds.jpg";
 import { login, registerNewUser } from "../api";
 import { FaTimesCircle as ErrorIcon } from "react-icons/fa";
 import { AxiosError } from "axios";
-import LoadingSpinner from "../assets/img/loading_spinner.svg";
 
 const StartingForm: React.FC<{
   onLoggedIn: () => void;
   onUseAsGuest: () => void;
 }> = ({ onLoggedIn, onUseAsGuest }) => {
+  useEffect(() => {
+    document.title = "Log In";
+  }, []);
   const [isLogin, setIsLogin] = useState(true);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [error, setError] = useState("");
