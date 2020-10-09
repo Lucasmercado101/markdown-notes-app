@@ -25,16 +25,16 @@
     "react-scripts": "3.4.3",
     "react-uuid": "^1.0.2",
     "typescript": "^3.7.5",
-    "unstated-next": "^1.1.0"
+    "unstated-next": "^1.1.0",
+    "tailwindcss": "^1.8.10"
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "npm run watch:css && react-scripts start",
-    "build": "npm run build:css && react-scripts build",
+    "build": "react-scripts build",
+    "dev": "npm run build:css && react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
-    "watch:css": "postcss src/assets/tailwind.css -o src/assets/main.css"
+    "build:css": "tailwindcss build src/assets/tailwind.css -o src/assets/main.css"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -52,9 +52,6 @@
     ]
   },
   "devDependencies": {
-    "@types/js-cookie": "^2.2.6",
-    "autoprefixer": "^9.0.0",
-    "postcss-cli": "^8.0.0",
-    "tailwindcss": "^1.8.10"
+    "@types/js-cookie": "^2.2.6"
   }
 }
