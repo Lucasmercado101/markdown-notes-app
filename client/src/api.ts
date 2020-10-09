@@ -1,7 +1,6 @@
 import { Note } from "./components/Note/types";
 import axios from "axios";
 
-//TODO: catch errors
 export const getNotes = () => {
   return axios.get("/api/notes");
 };

@@ -5,19 +5,25 @@ export const markedDownContent = (content: string) => {
   content = content.replace(/>/g, "&gt;");
 
   content = content.replace(
-    //TODO: fix headers regex
-    /!!![ ].+[ ]?/g,
-    (x) => `<h3 class="text-xl">${x.substr(3, x.length)}</h1>`
+    /(?<=\r\n|\r|\n|^)![ ].+[ ]?/g,
+    (x) =>
+      `<h1 class="text-3xl">${x
+        .substr(1, x.length)
+        .replace("!", "&#x21;")}</h1>`
   );
 
   content = content.replace(
-    /!![ ].+[ ]?/g,
-    (x) => `<h2 class="text-2xl">${x.substr(2, x.length)}</h1>`
+    /(?<=\r\n|\r|\n|^)!![ ].+[ ]?/g,
+    (x) =>
+      `<h2 class="text-2xl">${x
+        .substr(2, x.length)
+        .replace("!", "&#x21;")}</h1>`
   );
 
   content = content.replace(
-    /![ ].+[ ]?/g,
-    (x) => `<h1 class="text-3xl">${x.substr(1, x.length)}</h1>`
+    /(?<=\r\n|\r|\n|^)!!![ ].+[ ]??/g,
+    (x) =>
+      `<h3 class="text-xl">${x.substr(3, x.length).replace("!", "&#x21;")}</h1>`
   );
 
   content = content.replace(
