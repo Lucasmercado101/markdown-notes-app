@@ -48,7 +48,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("*", (req, res) => {
+app.get("*", (_, res) => {
   res.sendFile(path.join(rootDir, "..", "client", "build", "index.html"));
 });
 
