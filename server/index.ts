@@ -48,9 +48,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(rootDir, "..", "client", "build", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(rootDir, "..", "client", "build", "index.html"));
+});
 
 app.use("/api", userRoutes);
 app.use("/api", notesRoutes);
