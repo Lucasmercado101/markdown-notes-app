@@ -16,8 +16,6 @@ import Toasts from "../../components/ToastsContainer/toasts";
 import newUUID from "react-uuid";
 import { AxiosError } from "axios";
 
-//TODO: Set a note limit of 100
-
 const Notes: React.FC<{ userID: string; onRequestLogOut: () => void }> = ({
   userID,
   onRequestLogOut,

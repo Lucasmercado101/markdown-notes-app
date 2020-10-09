@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import GoogleLogin from "react-google-login";
 import birdImage from "../assets/img/birds.jpg";
-import { login, registerNewUser } from "../api";
+import { login, registerNewUser, loginWithGoogle } from "../api";
+import googleLogo from "../assets/img/Google_G_Logo.svg";
 import { FaTimesCircle as ErrorIcon } from "react-icons/fa";
 import { AxiosError } from "axios";
 
@@ -125,7 +127,6 @@ const StartingForm: React.FC<{
           } w-full py-2 my-3 text-xl rounded-md text-white cursor-pointer`}
           value="Log In"
         />
-
         <input
           type="submit"
           name="register"
@@ -138,7 +139,7 @@ const StartingForm: React.FC<{
           } w-full py-2 my-3 text-xl rounded-md text-white cursor-pointer`}
           value="Create an account"
         />
-
+        <p className="text-line-through my-2 text-gray-600">or</p>
         <input
           onClick={() => onUseAsGuest()}
           type="button"
@@ -151,11 +152,25 @@ const StartingForm: React.FC<{
           }  bg-white border-2 border-gray-500 text-xl rounded-md py-2 my-3 text-md cursor-pointer`}
           value="Use as guest"
         />
-
-        {/* TODO: Google Login button
-        <small className="text-line-through my-2 text-gray-600">
-          or login with
-        </small> */}
+        <GoogleLogin
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}
+          buttonText="Login"
+          onSuccess={(response: any) =>
+            loginWithGoogle(response.tokenId).then(onLoggedIn)
+          }
+          render={(renderProps) => (
+            <button
+              onClick={renderProps.onClick}
+              disabled={isLoggingIn || renderProps.disabled}
+              className="flex flex-row font-sans justify-center items-center h-12 my-3 text-xl py-2 border-2 border-gray-500 bg-white rounded-md"
+            >
+              <img src={googleLogo} className="h-full mr-2" alt="Google logo" />
+              <p>Sign in with Google</p>
+            </button>
+          )}
+          onFailure={() => setError("An unexpected error ocurred.")}
+          cookiePolicy={"single_host_origin"}
+        />
       </form>
       <div
         style={{ background: "#fffff4" }}

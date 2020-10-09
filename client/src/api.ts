@@ -28,4 +28,8 @@ export const login = (userData: { email: string; password: string }) => {
   return axios.post(`api/users/login`, userData);
 };
 
+export const loginWithGoogle = (tokenID: string) => {
+  return axios.post(`api/users/login/google`, { tokenID });
+};
+
 export const logOut = () => axios.post("api/users/logout");
