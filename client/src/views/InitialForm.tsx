@@ -160,9 +160,17 @@ const StartingForm: React.FC<{
           }
           render={(renderProps) => (
             <button
-              onClick={renderProps.onClick}
+              type="button"
+              onClick={() => {
+                setIsLoggingIn(true);
+                renderProps.onClick();
+              }}
               disabled={isLoggingIn || renderProps.disabled}
-              className="flex flex-row font-sans justify-center items-center h-12 my-3 text-xl py-2 border-2 border-gray-500 bg-white rounded-md"
+              className={`${
+                isLoggingIn
+                  ? " text-gray-600 cursor-not-allowed"
+                  : "text-gray-900 "
+              } flex flex-row font-sans justify-center items-center h-12 my-3 text-xl py-2 border-2 border-gray-500 bg-white rounded-md`}
             >
               <img src={googleLogo} className="h-full mr-2" alt="Google logo" />
               <p>Sign in with Google</p>
