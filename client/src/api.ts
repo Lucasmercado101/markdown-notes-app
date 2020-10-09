@@ -1,33 +1,32 @@
 import { Note } from "./components/Note/types";
-import axios, { AxiosPromise } from "axios";
+import axios from "axios";
 
 //TODO: catch errors
-export const getNotes = (): AxiosPromise<Note[]> => {
+export const getNotes = () => {
   return axios.get("/api/notes");
 };
 
-export const createNewNote = (): AxiosPromise<Note> => {
+export const createNewNote = () => {
   return axios.post("api/notes");
 };
 
-export const deleteNote = (id: string): AxiosPromise<any> => {
+export const deleteNote = (id: string) => {
   return axios.delete(`api/notes/${id}`);
 };
 
-export const updateNote = (note: Note): AxiosPromise<any> => {
+export const updateNote = (note: Note) => {
   return axios.put(`api/notes/${note._id}`, { note });
 };
 
 export const registerNewUser = (userData: {
   email: string;
   password: string;
-}): AxiosPromise<any> => {
+}) => {
   return axios.post(`api/users/register`, userData);
 };
 
-export const login = (userData: {
-  email: string;
-  password: string;
-}): AxiosPromise<any> => {
+export const login = (userData: { email: string; password: string }) => {
   return axios.post(`api/users/login`, userData);
 };
+
+export const logOut = () => axios.post("api/users/logout");

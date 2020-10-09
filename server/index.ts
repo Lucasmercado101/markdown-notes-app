@@ -5,6 +5,7 @@ import cors from "cors";
 import path from "path";
 import passport from "passport";
 import session from "express-session";
+const MongoStore = require("connect-mongo")(session);
 
 import userRoutes from "./routes/users";
 import notesRoutes from "./routes/notes";
@@ -31,13 +32,14 @@ mongoose
 app.use(express.static(path.join(rootDir, "..", "client", "build")));
 app.use(cors());
 app.use(json());
-//TODO: replace session memoryStore with connect-mongo
+
 app.use(
   session({
     name: "user",
     secret: process.env.SESSION_SECRET!,
     resave: false,
     saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
     cookie: {
       httpOnly: false,
     },

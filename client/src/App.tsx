@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useReducer } from "react";
 import Cookies from "js-cookie";
 import "./assets/main.css";
 
+import { logOut as logOutServer } from "./api";
 import { reducer } from "./useReducer/reducer";
 import { State } from "./useReducer/reducer";
 import { logIn, logOut, useAsGuest } from "./useReducer/actions";
@@ -15,7 +16,6 @@ function App() {
   const { isLoggedIn, userID } = state;
 
   useLayoutEffect(() => {
-    //TODO: document.title = "Notes app"
     if (Cookies.get("user")) {
       dispatch(logIn);
     }
@@ -26,7 +26,13 @@ function App() {
       <div className={`relative w-full h-full overflow-hidden`}>
         {isLoggedIn ? (
           <Toasts.Provider>
-            <Notes userID={userID} onRequestLogOut={() => dispatch(logOut)} />
+            <Notes
+              userID={userID}
+              onRequestLogOut={() => {
+                logOutServer().catch(() => {});
+                dispatch(logOut);
+              }}
+            />
           </Toasts.Provider>
         ) : (
           <InitialForm

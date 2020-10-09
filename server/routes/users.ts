@@ -27,4 +27,10 @@ router.post("/users/login", passport.authenticate("login"), (_, res) =>
   res.sendStatus(200)
 );
 
+router.post("/users/logout", (req, res) => {
+  req.session?.destroy(() => {
+    res.sendStatus(200);
+  });
+});
+
 export default router;

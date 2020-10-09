@@ -9,8 +9,10 @@ type ToastType = {
 
 function useToasts() {
   const [toasts, setToasts] = useState<ToastType[]>([]);
+
   const removeToast = (id: string) =>
     setToasts((j) => j.filter((n) => n.id !== id));
+
   const newToast = (message: string) =>
     setToasts((oldToasts) => [...oldToasts, { id: newUUID(), message }]);
   return { toasts, removeToast, newToast };
