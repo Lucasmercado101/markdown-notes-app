@@ -156,7 +156,12 @@ const StartingForm: React.FC<{
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}
           buttonText="Login"
           onSuccess={(response: any) =>
-            loginWithGoogle(response.tokenId).then(onLoggedIn)
+            loginWithGoogle(response.tokenId)
+              .then(onLoggedIn)
+              .catch(() => {
+                setIsLoggingIn(false);
+                setError("An unexpected error ocurred.");
+              })
           }
           render={(renderProps) => (
             <button
@@ -176,7 +181,10 @@ const StartingForm: React.FC<{
               <p>Sign in with Google</p>
             </button>
           )}
-          onFailure={() => setError("An unexpected error ocurred.")}
+          onFailure={() => {
+            setIsLoggingIn(false);
+            setError("An unexpected error ocurred.");
+          }}
           cookiePolicy={"single_host_origin"}
         />
       </form>
