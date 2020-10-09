@@ -15,10 +15,12 @@ import initPassport from "./passport config";
 // Dev requirement
 import "dotenv/config";
 
-const port = process.env.PRODUCTION || 5000;
+const port = process.env.PORT || 5000;
 const app = express();
 
 initPassport(passport);
+
+console.log(process.env);
 
 mongoose
   .connect(process.env.MONGO_DB_PASS!, {
@@ -29,7 +31,7 @@ mongoose
   .then(() => console.log("connected to Mongo"))
   .catch(() => console.log("FAILED TO CONNECT TO MONGO"));
 
-app.use(express.static(path.join(rootDir, "..", "client", "build")));
+app.use(express.static(path.join(rootDir, "..", "..", "client", "build")));
 app.use(cors());
 app.use(json());
 
@@ -48,11 +50,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("*", (_, res) => {
-  res.sendFile(path.join(rootDir, "..", "client", "build", "index.html"));
-});
-
 app.use("/api", userRoutes);
 app.use("/api", notesRoutes);
+
+app.get("*", (_, res) => {
+  res.sendFile(path.join(rootDir, "..", "..", "client", "build", "index.html"));
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));

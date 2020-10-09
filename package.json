@@ -4,12 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run client && npm run server",
-    "dev": "concurrently --kill-others-on-fail \"npm run client:dev\" \"npm run server:dev\"",
-    "client:dev": "cd client && npm run dev",
-    "server:dev": "cd server && npm run dev",
-    "client": "cd client && npm start",
-    "server": "cd server && npm start"
+    "build": "npm run build:server && cd client && npm install && npm run build",
+    "build:server": "cd server && npm install",
+    "start": "node server/dist"
   },
   "repository": {
     "type": "git",

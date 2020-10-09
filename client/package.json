@@ -13,6 +13,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-modal": "^3.10.6",
     "@types/react-transition-group": "^4.4.0",
+    "@types/js-cookie": "^2.2.6",
     "axios": "^0.20.0",
     "framer-motion": "^2.7.7",
     "js-cookie": "^2.2.1",
@@ -52,6 +53,5 @@
     ]
   },
   "devDependencies": {
-    "@types/js-cookie": "^2.2.6"
   }
 }
