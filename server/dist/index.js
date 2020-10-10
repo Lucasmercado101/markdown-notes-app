@@ -21,14 +21,11 @@ var port = process.env.PORT || 5000;
 var app = express_1.default();
 passport_config_1.default(passport_1.default);
 console.log(process.env);
-mongoose_1.default
-    .connect(process.env.MONGO_DB_PASS, {
+mongoose_1.default.connect(process.env.MONGO_DB_PASS, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-})
-    .then(function () { return console.log("connected to Mongo"); })
-    .catch(function () { return console.log("FAILED TO CONNECT TO MONGO"); });
+});
 app.use(express_1.default.static(path_1.default.join(path_2.default, "..", "..", "client", "build")));
 app.use(cors_1.default());
 app.use(body_parser_1.json());

@@ -79,6 +79,7 @@ router.delete("/notes/:id", function (req, res) { return __awaiter(void 0, void 
                 return [4 /*yield*/, note_1.default.findByIdAndDelete(noteID).catch(function () { })];
             case 3:
                 _b.sent();
+                res.sendStatus(200);
                 return [3 /*break*/, 5];
             case 4:
                 _a = _b.sent();
