@@ -22,14 +22,11 @@ initPassport(passport);
 
 console.log(process.env);
 
-mongoose
-  .connect(process.env.MONGO_DB_PASS!, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  })
-  .then(() => console.log("connected to Mongo"))
-  .catch(() => console.log("FAILED TO CONNECT TO MONGO"));
+mongoose.connect(process.env.MONGO_DB_PASS!, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+});
 
 app.use(express.static(path.join(rootDir, "..", "..", "client", "build")));
 app.use(cors());
