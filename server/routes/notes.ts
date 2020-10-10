@@ -34,6 +34,7 @@ router.delete("/notes/:id", async (req: any, res) => {
   try {
     await req.user.update({ $pull: { notes: { $in: [noteID] } } });
     await Note.findByIdAndDelete(noteID).catch(() => {});
+    res.sendStatus(200);
   } catch {
     res.sendStatus(500);
   }
