@@ -1,4 +1,6 @@
-<br />
+
+[![Notes App](notes-app.png)](https://notes-app-1154.herokuapp.com)<br />
+
 <p align="center">
 
   <h3 align="center">Markdown Notes App</h3>
@@ -25,8 +27,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Notes App](notes-app.png)](https://notes-app-1154.herokuapp.com)
 
 I wanted to learn more technologies, specifically Typescript, so I decided to make a note taking app using TypeScript. <br>
 The way it works is simple. You just login and write notes. It's all saved to MongoDB so you can access them from anywhere.
