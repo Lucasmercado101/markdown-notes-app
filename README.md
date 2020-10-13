@@ -1,9 +1,90 @@
-# markdown-notes-app
+<br />
+<p align="center">
 
-[![Notes App][mockup]](https://notes-app-1154.herokuapp.com)
+  <h3 align="center">Markdown Notes App</h3>
 
-deployed on [heroku](https://notes-app-1154.herokuapp.com)
+  <p align="center">
+    An Online Notetaking App
+  </p>
+</p>
 
-<!-- MARKDOWN LINKS & IMAGES -->
 
-[mockup]: notes-app.png
+
+<!-- TABLE OF CONTENTS -->
+## Table of Contents
+
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+* [License](#license)
+* [Contact](#contact)
+* [Acknowledgements](#acknowledgements)
+
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+[![Notes App](notes-app.png)](https://notes-app-1154.herokuapp.com)
+
+I wanted to learn more technologies, specifically Typescript, so I decided to make a note taking app using TypeScript. <br>
+The way it works is simple. You just login and write notes. It's all saved to MongoDB so you can access them from anywhere.
+
+### Key features:
+* Account creation
+* Google Login Button
+* Markdown formatting
+* Every note is stored on MongoDB
+
+### Built With
+This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+* [ReactJS](https://reactjs.org/)
+* [NodeJS](https://nodejs.org/en/)
+* [TailwindCSS](https://tailwindcss.com/)
+* [ExpressJS](https://expressjs.com/)
+* [PassportJS](https://www.passportjs.org/)
+* [MongooseJS](https://mongoosejs.com/)
+* [TypeScript](https://www.typescriptlang.org/)
+
+## Getting Started
+
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+* npm
+
+1. On the root folder run:
+```sh
+npm install
+cd client && npm install
+cd server && npm install
+```
+
+2. On the `Client` folder add a .env with the following:
+```
+REACT_APP_GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+```
+
+3. On the `Server` folder add a .env with the following:
+```
+SESSION_SECRET=YOUR_SESSION_SECRET
+PASSWORD_SECRET=YOUR_PASSWORD_SECRET
+MONGO_DB_PASS=YOUR_MONGO_DB_URI
+GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+```
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Contact
+lucasmercado101@gmail.com
+
+Project Link: https://github.com/Lucasmercado101/markdown-notes-app
+
+## Acknowledgements
+* [React Icons](https://react-icons.github.io/react-icons)
+* [Framer Motion](https://www.framer.com/motion)
+* [Axios](https://github.com/axios/axios)
