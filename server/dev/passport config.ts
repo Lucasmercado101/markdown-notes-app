@@ -1,7 +1,7 @@
-import { PassportStatic } from "passport";
-import { Strategy as LocalStrategy, VerifyFunction } from "passport-local";
-import User, { User as UserType } from "./models/user";
-import { compare as passwordsAreTheSame } from "bcrypt";
+import { PassportStatic } from 'passport';
+import { Strategy as LocalStrategy, VerifyFunction } from 'passport-local';
+import User, { User as UserType } from './models/user';
+import { compare as passwordsAreTheSame } from 'bcrypt';
 
 export default function init(passport: PassportStatic) {
   const authenticateUser: VerifyFunction = async (email, password, done) => {
@@ -14,8 +14,8 @@ export default function init(passport: PassportStatic) {
   };
 
   passport.use(
-    "login",
-    new LocalStrategy({ usernameField: "email" }, authenticateUser)
+    'login',
+    new LocalStrategy({ usernameField: 'email' }, authenticateUser)
   );
   passport.serializeUser((user: UserType, done) => done(null, user._id));
   passport.deserializeUser(
