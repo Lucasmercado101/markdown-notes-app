@@ -1,5 +1,5 @@
 
-[![Notes App](notes-app.png)](https://notes-app-1154.herokuapp.com)<br />
+[![Notes App](mockup.svg)](https://notes-app-1154.herokuapp.com)<br />
 
 <p align="center">
 
