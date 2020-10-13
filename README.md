@@ -75,6 +75,11 @@ MONGO_DB_PASS=YOUR_MONGO_DB_URI
 GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
 ```
 
+4. Then on your root folder just run:
+```sh
+npm run dev
+```
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
