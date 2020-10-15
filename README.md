@@ -38,7 +38,7 @@ The way it works is simple. You just login and write notes. It's all saved to Mo
 * Every note is stored on MongoDB
 
 ### Built With
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+
 * [ReactJS](https://reactjs.org/)
 * [NodeJS](https://nodejs.org/en/)
 * [TailwindCSS](https://tailwindcss.com/)
